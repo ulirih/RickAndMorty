@@ -7,6 +7,7 @@
 
 import UIKit
 import Combine
+import SnapKit
 
 class CharactersListViewController: UIViewController {
     
@@ -20,9 +21,10 @@ class CharactersListViewController: UIViewController {
         title = "Rick and Morty"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        activityIndicator.center = view.center
         view.addSubview(activityIndicator)
+        view.addSubview(tableView)
         
+        setupConstraints()
         setupBindings()
     }
     
@@ -56,7 +58,16 @@ class CharactersListViewController: UIViewController {
         let table = UITableView()
         return table
     }()
-
-
+    
+    private func setupConstraints() {
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalTo(view)
+        }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.bottom.equalTo(view)
+            make.trailing.leading.equalTo(view)
+        }
+    }
 }
 
