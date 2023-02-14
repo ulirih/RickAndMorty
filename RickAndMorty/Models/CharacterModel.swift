@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CharacterModel: Codable {
+struct CharacterModel: Codable, Hashable {
     let id: Int
     let name: String
     let status: Status
@@ -19,25 +19,29 @@ struct CharacterModel: Codable {
     let episode: [String]
     let url: String
     let created: String
+    
+    static func == (lhs: CharacterModel, rhs: CharacterModel) -> Bool {
+        lhs.id == rhs.id
+    }
 }
 
-enum Gender: String, Codable {
+enum Gender: String, Codable, Hashable {
     case female = "Female"
     case male = "Male"
     case unknown = "unknown"
 }
 
-struct Location: Codable {
+struct Location: Codable, Hashable {
     let name: String
     let url: String
 }
 
-enum Species: String, Codable {
+enum Species: String, Codable, Hashable {
     case alien = "Alien"
     case human = "Human"
 }
 
-enum Status: String, Codable {
+enum Status: String, Codable, Hashable {
     case alive = "Alive"
     case dead = "Dead"
     case unknown = "unknown"

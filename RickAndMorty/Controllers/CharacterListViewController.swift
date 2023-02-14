@@ -11,27 +11,36 @@ import SnapKit
 
 class CharactersListViewController: UIViewController {
     
-    private let viewModel = CharactersListViewModel(service: ApiService())
+    var viewModel: CharactersListViewModelProtocol!
+    
     private var cancellable: [AnyCancellable] = []
+    private var dataSource: UITableViewDiffableDataSource<CharacterListSection, CharacterModel>!
+    
+    override func loadView() {
+        super.loadView()
+        
+        setupView()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
-        title = "Rick and Morty"
-        navigationController?.navigationBar.prefersLargeTitles = true
-        
-        view.addSubview(activityIndicator)
-        view.addSubview(tableView)
+        dataSource = configureDataSource()
         
         setupConstraints()
         setupBindings()
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
         
         viewModel.fetchCharacters()
+    }
+    
+    private func setupView() {
+        title = "Rick and Morty"
+        view.backgroundColor = .white
+        navigationController?.navigationBar.prefersLargeTitles = true
+        tableView.delegate = self
+        
+        view.addSubview(tableView)
+        view.addSubview(activityIndicator)
     }
     
     private func setupBindings() {
@@ -42,10 +51,27 @@ class CharactersListViewController: UIViewController {
             .store(in: &cancellable)
         
         viewModel.characters
-            .sink { values in
-                print(values.count)
+            .sink { [unowned self] characters in
+                var snapshot = self.dataSource.snapshot()
+                if !snapshot.sectionIdentifiers.contains(.characters) {
+                    snapshot.appendSections([.characters])
+                }
+                snapshot.appendItems(characters, toSection: .characters)
+                dataSource.apply(snapshot)
             }
             .store(in: &cancellable)
+    }
+    
+    private func configureDataSource() -> UITableViewDiffableDataSource<CharacterListSection, CharacterModel> {
+        let dataSource = UITableViewDiffableDataSource<CharacterListSection, CharacterModel>(tableView: tableView) {
+            tableView, indexPath, model in
+            let cell = tableView.dequeueReusableCell(withIdentifier: CharacterViewCell.reusableId, for: indexPath) as! CharacterViewCell
+            cell.configure(model: model)
+            cell.contentView.layer.masksToBounds = true
+            return cell
+        }
+        
+        return dataSource
     }
     
     private let activityIndicator: UIActivityIndicatorView = {
@@ -56,6 +82,8 @@ class CharactersListViewController: UIViewController {
     
     private let tableView: UITableView = {
         let table = UITableView()
+        table.separatorStyle = .none
+        table.register(CharacterViewCell.self, forCellReuseIdentifier: CharacterViewCell.reusableId)
         return table
     }()
     
@@ -65,9 +93,22 @@ class CharactersListViewController: UIViewController {
         }
         
         tableView.snp.makeConstraints { make in
-            make.top.bottom.equalTo(view)
+            make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
+            make.bottom.equalToSuperview()
             make.trailing.leading.equalTo(view)
         }
+    }
+    
+    enum CharacterListSection: Hashable {
+        case characters
+    }
+}
+
+extension CharactersListViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        viewModel.didSelectCharacter(character: dataSource.itemIdentifier(for: indexPath)!)
     }
 }
 

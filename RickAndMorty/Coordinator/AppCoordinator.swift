@@ -13,6 +13,7 @@ protocol AppCoordinatorProtocol: AnyObject {
     
     func start()
     func goToCharactersListVC()
+    func goToCharacterDetail(character model: CharacterModel)
 }
 
 class AppCoordinator: AppCoordinatorProtocol {
@@ -27,6 +28,22 @@ class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func goToCharactersListVC() {
-        navigationController.pushViewController(CharactersListViewController(), animated: false)
+        let viewModel = CharactersListViewModel(service: ApiService(), coordinator: self)
+        let controller = CharactersListViewController()
+        controller.viewModel = viewModel
+        
+        push(controller: controller, animated: false)
+    }
+    
+    func goToCharacterDetail(character model: CharacterModel) {
+        let vc = CharacterDetailViewController()
+        vc.character = model
+        vc.coordinator = self
+        
+        push(controller: vc)
+    }
+    
+    private func push(controller: UIViewController, animated: Bool = true) {
+        navigationController.pushViewController(controller, animated: animated)
     }
 }

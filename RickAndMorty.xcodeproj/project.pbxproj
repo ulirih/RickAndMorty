@@ -16,6 +16,9 @@
 		55AED018299A4E6C00648018 /* CharacterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED017299A4E6C00648018 /* CharacterModel.swift */; };
 		55AED01B299A4EF700648018 /* ApiService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED01A299A4EF700648018 /* ApiService.swift */; };
 		55AED01E299A56B500648018 /* CharactersListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED01D299A56B500648018 /* CharactersListViewModel.swift */; };
+		55AED021299A86FC00648018 /* CharacterViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED020299A86FC00648018 /* CharacterViewCell.swift */; };
+		55AED023299BB07000648018 /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED022299BB07000648018 /* CharacterDetailViewController.swift */; };
+		55AED025299BC24000648018 /* CharacterDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED024299BC24000648018 /* CharacterDetailViewCell.swift */; };
 		EB52A94B96F988F0C745748F /* Pods_RickAndMorty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ED41EE2CECAD89A8873315 /* Pods_RickAndMorty.framework */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +34,9 @@
 		55AED017299A4E6C00648018 /* CharacterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterModel.swift; sourceTree = "<group>"; };
 		55AED01A299A4EF700648018 /* ApiService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiService.swift; sourceTree = "<group>"; };
 		55AED01D299A56B500648018 /* CharactersListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersListViewModel.swift; sourceTree = "<group>"; };
+		55AED020299A86FC00648018 /* CharacterViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewCell.swift; sourceTree = "<group>"; };
+		55AED022299BB07000648018 /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
+		55AED024299BC24000648018 /* CharacterDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewCell.swift; sourceTree = "<group>"; };
 		B1CE380B85573DFBD3E4AD25 /* Pods-RickAndMorty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMorty.debug.xcconfig"; path = "Target Support Files/Pods-RickAndMorty/Pods-RickAndMorty.debug.xcconfig"; sourceTree = "<group>"; };
 		DA232CBF55EE86B693F2DD7C /* Pods-RickAndMorty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMorty.release.xcconfig"; path = "Target Support Files/Pods-RickAndMorty/Pods-RickAndMorty.release.xcconfig"; sourceTree = "<group>"; };
 		F2ED41EE2CECAD89A8873315 /* Pods_RickAndMorty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickAndMorty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,7 +60,6 @@
 				B1CE380B85573DFBD3E4AD25 /* Pods-RickAndMorty.debug.xcconfig */,
 				DA232CBF55EE86B693F2DD7C /* Pods-RickAndMorty.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -104,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				55AECFFD299A409200648018 /* CharacterListViewController.swift */,
+				55AED022299BB07000648018 /* CharacterDetailViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -111,6 +117,7 @@
 		55AED00F299A425100648018 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				55AED01F299A86BF00648018 /* Cells */,
 				55AED004299A409500648018 /* LaunchScreen.storyboard */,
 			);
 			path = Views;
@@ -155,6 +162,15 @@
 				55AED01D299A56B500648018 /* CharactersListViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		55AED01F299A86BF00648018 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				55AED020299A86FC00648018 /* CharacterViewCell.swift */,
+				55AED024299BC24000648018 /* CharacterDetailViewCell.swift */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		D2476793F883355A4AD9301C /* Frameworks */ = {
@@ -280,11 +296,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				55AED013299A460E00648018 /* AppCoordinator.swift in Sources */,
+				55AED025299BC24000648018 /* CharacterDetailViewCell.swift in Sources */,
 				55AED018299A4E6C00648018 /* CharacterModel.swift in Sources */,
+				55AED021299A86FC00648018 /* CharacterViewCell.swift in Sources */,
 				55AED01E299A56B500648018 /* CharactersListViewModel.swift in Sources */,
 				55AED01B299A4EF700648018 /* ApiService.swift in Sources */,
 				55AECFFE299A409200648018 /* CharacterListViewController.swift in Sources */,
 				55AECFFA299A409200648018 /* AppDelegate.swift in Sources */,
+				55AED023299BB07000648018 /* CharacterDetailViewController.swift in Sources */,
 				55AED016299A4D7B00648018 /* CharactersListModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

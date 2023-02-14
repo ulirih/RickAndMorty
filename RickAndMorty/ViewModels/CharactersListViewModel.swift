@@ -9,24 +9,28 @@ import Foundation
 import Combine
 
 protocol CharactersListViewModelProtocol: AnyObject {
+    
     var isLoading: PassthroughSubject<Bool, Never> { get set }
     var characters: PassthroughSubject<[CharacterModel], Never> { get set }
     var error: PassthroughSubject<ApiServiceError, Never> { get set }
     
     func fetchCharacters() -> Void
+    func didSelectCharacter(character: CharacterModel) -> Void
 }
 
 class CharactersListViewModel: CharactersListViewModelProtocol {
-    
+
     var isLoading: PassthroughSubject<Bool, Never>
     var characters: PassthroughSubject<[CharacterModel], Never>
     var error: PassthroughSubject<ApiServiceError, Never>
     
     private var cancellable: [AnyCancellable] = []
     private let service: ApiServiceProtocol
+    private weak var coordinator: AppCoordinatorProtocol?
     
-    init(service: ApiServiceProtocol) {
+    init(service: ApiServiceProtocol, coordinator: AppCoordinatorProtocol) {
         self.service = service
+        self.coordinator = coordinator
         
         isLoading = PassthroughSubject<Bool, Never>()
         characters = PassthroughSubject<[CharacterModel], Never>()
@@ -47,6 +51,9 @@ class CharactersListViewModel: CharactersListViewModelProtocol {
                 self.characters.send(data.results)
             }
             .store(in: &cancellable)
-        
+    }
+    
+    func didSelectCharacter(character: CharacterModel) {
+        coordinator?.goToCharacterDetail(character: character)
     }
 }
