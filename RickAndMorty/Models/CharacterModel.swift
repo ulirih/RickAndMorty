@@ -10,7 +10,7 @@ import Foundation
 struct CharacterModel: Codable, Hashable {
     let id: Int
     let name: String
-    let status: Status
+    let status: CharacterStatus
     let species: Species
     let type: String
     let gender: Gender
@@ -41,7 +41,7 @@ enum Species: String, Codable, Hashable {
     case human = "Human"
 }
 
-enum Status: String, Codable, Hashable {
+enum CharacterStatus: String, Codable, Hashable {
     case alive = "Alive"
     case dead = "Dead"
     case unknown = "unknown"

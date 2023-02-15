@@ -38,7 +38,7 @@ class AppCoordinator: AppCoordinatorProtocol {
     func goToCharacterDetail(character model: CharacterModel) {
         let vc = CharacterDetailViewController()
         vc.character = model
-        vc.coordinator = self
+        vc.viewModel = CharacterDetailViewModel(service: ApiService(), coordinator: self)
         
         push(controller: vc)
     }

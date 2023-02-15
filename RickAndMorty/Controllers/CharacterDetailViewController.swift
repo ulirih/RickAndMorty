@@ -9,11 +9,11 @@ import UIKit
 import Combine
 
 class CharacterDetailViewController: UIViewController {
+    
     var character: CharacterModel!
-    var coordinator: AppCoordinatorProtocol!
+    var viewModel: CharacterDetailViewModelProtocol!
     
     private var dataSource: UITableViewDiffableDataSource<CharacterDetailListSection, CharacterDetailListRow>!
-    private var service = ApiService()
     private var cancellable: [AnyCancellable] = []
     
     override func loadView() {
@@ -26,26 +26,37 @@ class CharacterDetailViewController: UIViewController {
         super.viewDidLoad()
         
         setupConstraints()
+        setupBindings()
+        
+        viewModel.fetchAlsoCharacters()
 
         dataSource = configureDataSource()
         var snapshot = dataSource.snapshot()
         snapshot.appendSections([.detail, .also])
         snapshot.appendItems([.detail(character)], toSection: .detail)
         dataSource.apply(snapshot)
-        
-        service.getCharacters(page: 1)
+
+    }
+    
+    private func setupBindings() {
+        viewModel.alsoCharacters
             .sink { _ in
                 
             } receiveValue: { [unowned self] characters in
                 var snapshot = self.dataSource.snapshot()
-                let ar = characters.results.shuffled().map { model in
+                let ar = characters.shuffled().map { model in
                     return CharacterDetailListRow.also(model)
                 }
                 snapshot.appendItems(ar, toSection: .also)
                 self.dataSource.apply(snapshot)
             }
             .store(in: &cancellable)
-
+        
+        viewModel.isLoading
+            .sink { [unowned self] isLoading in
+                isLoading ? self.activityIndicator.startAnimating() : self.activityIndicator.stopAnimating()
+            }
+            .store(in: &cancellable)
     }
     
     private func setupViews() {
@@ -55,13 +66,18 @@ class CharacterDetailViewController: UIViewController {
         
         tableView.delegate = self
         view.addSubview(tableView)
+        view.addSubview(activityIndicator)
     }
     
     private func setupConstraints() {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide.snp.top)
-            make.bottom.equalTo(view.safeAreaLayoutGuide.snp.bottom)
+            make.bottom.equalToSuperview()
             make.trailing.leading.equalToSuperview()
+        }
+        
+        activityIndicator.snp.makeConstraints { make in
+            make.centerX.centerY.equalTo(view)
         }
     }
     
@@ -96,6 +112,12 @@ class CharacterDetailViewController: UIViewController {
         return table
     }()
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(frame: .zero)
+        indicator.style = .large
+        return indicator
+    }()
+    
     enum CharacterDetailListSection: Hashable {
         case detail
         case also
@@ -116,7 +138,7 @@ extension CharacterDetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         if case .also(let character) = dataSource.itemIdentifier(for: indexPath) {
-            coordinator.goToCharacterDetail(character: character)
+            viewModel.didSelectCharacter(character: character)
         }
     }
 }

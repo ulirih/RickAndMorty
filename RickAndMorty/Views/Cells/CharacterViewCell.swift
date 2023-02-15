@@ -29,7 +29,7 @@ class CharacterViewCell: UITableViewCell {
     }
     
     private func setuppView() {
-        contentView.heightAnchor.constraint(equalToConstant: 160).isActive = true
+        contentView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         
         container.backgroundColor = .white
         container.layer.cornerRadius = cornerRadius
