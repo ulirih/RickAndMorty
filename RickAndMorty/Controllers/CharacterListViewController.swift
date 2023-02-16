@@ -35,8 +35,9 @@ class CharactersListViewController: UIViewController {
     
     private func setupView() {
         title = "Rick and Morty"
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+        
         tableView.delegate = self
         
         view.addSubview(tableView)
@@ -58,6 +59,12 @@ class CharactersListViewController: UIViewController {
                 }
                 snapshot.appendItems(characters, toSection: .characters)
                 dataSource.apply(snapshot)
+            }
+            .store(in: &cancellable)
+        
+        viewModel.error
+            .sink { [unowned self] error in
+                self.showAlertError(message: error.getDefaultTextError())
             }
             .store(in: &cancellable)
     }

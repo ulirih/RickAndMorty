@@ -31,7 +31,7 @@ class CharacterViewCell: UITableViewCell {
     private func setuppView() {
         contentView.heightAnchor.constraint(equalToConstant: 130).isActive = true
         
-        container.backgroundColor = .white
+        container.backgroundColor = .systemBackground
         container.layer.cornerRadius = cornerRadius
         container.layer.shadowColor = UIColor.gray.cgColor
         container.layer.shadowOpacity = 0.6
@@ -101,7 +101,7 @@ class CharacterViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 2
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .darkGray
+        label.textColor = .label
         
         return label
     }()
@@ -110,7 +110,7 @@ class CharacterViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .darkGray
+        label.textColor = .label
         
         return label
     }()

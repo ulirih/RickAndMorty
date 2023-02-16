@@ -40,6 +40,17 @@ class AppCoordinator: AppCoordinatorProtocol {
         vc.character = model
         vc.viewModel = CharacterDetailViewModel(service: ApiService(), coordinator: self)
         
+        // if prevoius screen is the same, remove it
+        if navigationController.viewControllers.last is CharacterDetailViewController {
+            push(controller: vc)
+            
+            var navigationStack = navigationController.viewControllers
+            navigationStack.remove(at: navigationStack.count - 2)
+            navigationController.viewControllers = navigationStack
+            
+            return
+        }
+        
         push(controller: vc)
     }
     

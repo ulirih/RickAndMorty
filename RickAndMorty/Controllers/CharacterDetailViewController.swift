@@ -32,10 +32,10 @@ class CharacterDetailViewController: UIViewController {
 
         dataSource = configureDataSource()
         var snapshot = dataSource.snapshot()
-        snapshot.appendSections([.detail, .also])
+        snapshot.appendSections([.detail, .alsoHeader, .also])
+        snapshot.appendItems([.alsoHeader("See also characters")], toSection: .alsoHeader)
         snapshot.appendItems([.detail(character)], toSection: .detail)
         dataSource.apply(snapshot)
-
     }
     
     private func setupBindings() {
@@ -57,14 +57,21 @@ class CharacterDetailViewController: UIViewController {
                 isLoading ? self.activityIndicator.startAnimating() : self.activityIndicator.stopAnimating()
             }
             .store(in: &cancellable)
+        
+        viewModel.error
+            .sink { [unowned self] error in
+                self.showAlertError(message: error.getDefaultTextError())
+            }
+            .store(in: &cancellable)
     }
     
     private func setupViews() {
         title = character.name
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         
         tableView.delegate = self
+        
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
     }
@@ -92,6 +99,11 @@ class CharacterDetailViewController: UIViewController {
                 cell.isUserInteractionEnabled = false
                 return cell
                 
+            case .alsoHeader(let headerTitle):
+                let cell = tableView.dequeueReusableCell(withIdentifier: CharacterHeaderViewCell.reusableId, for: indexPath) as! CharacterHeaderViewCell
+                cell.titleLabel.text = headerTitle
+                return cell
+                
             case .also(let characterModel):
                 let cell = tableView.dequeueReusableCell(withIdentifier: CharacterViewCell.reusableId, for: indexPath) as! CharacterViewCell
                 cell.configure(model: characterModel)
@@ -104,10 +116,11 @@ class CharacterDetailViewController: UIViewController {
     }
     
     private let tableView: UITableView = {
-        let table = UITableView()
+        let table = UITableView(frame: .zero, style: .plain)
         table.separatorStyle = .none
         table.register(CharacterViewCell.self, forCellReuseIdentifier: CharacterViewCell.reusableId)
         table.register(CharacterDetailViewCell.self, forCellReuseIdentifier: CharacterDetailViewCell.reusableId)
+        table.register(CharacterHeaderViewCell.self, forCellReuseIdentifier: CharacterHeaderViewCell.reusableId)
         
         return table
     }()
@@ -118,23 +131,26 @@ class CharacterDetailViewController: UIViewController {
         return indicator
     }()
     
-    enum CharacterDetailListSection: Hashable {
+    enum CharacterDetailListSection: Int, Hashable {
         case detail
+        case alsoHeader
         case also
     }
     
     enum CharacterDetailListRow: Hashable {
         case detail(CharacterModel)
+        case alsoHeader(String)
         case also(CharacterModel)
     }
     
     deinit {
-        print("dealloc")
+        print("deinit")
     }
 }
 
 // MARK: TableView Delegate
 extension CharacterDetailViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         if case .also(let character) = dataSource.itemIdentifier(for: indexPath) {

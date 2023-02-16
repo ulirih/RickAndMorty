@@ -54,7 +54,7 @@ class CharacterStatusView: UIView {
         let label = UILabel()
         label.numberOfLines = 1
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .darkGray
+        label.textColor = .label
         
         return label
     }()

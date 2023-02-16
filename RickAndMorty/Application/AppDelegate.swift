@@ -13,6 +13,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var appCoordinator: AppCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         
         let navConrolller = UINavigationController()
@@ -23,6 +24,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        NetworkState.shared.startMonitoring()
+    }
+    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        NetworkState.shared.stopMonitoring()
     }
 }
 

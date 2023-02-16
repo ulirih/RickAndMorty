@@ -105,7 +105,7 @@ class CharacterDetailViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 2
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .darkGray
+        label.textColor = .label
         
         return label
     }()
@@ -134,7 +134,7 @@ class CharacterDetailViewCell: UITableViewCell {
         let label = UILabel()
         label.numberOfLines = 2
         label.font = .systemFont(ofSize: 14)
-        label.textColor = .darkGray
+        label.textColor = .label
         
         return label
     }()
