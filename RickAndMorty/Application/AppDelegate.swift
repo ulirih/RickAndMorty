@@ -10,6 +10,7 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
+    let dbManager = CoreDataManager.shared
     var appCoordinator: AppCoordinator?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -31,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
+        try? dbManager.save()
         NetworkState.shared.stopMonitoring()
     }
 }

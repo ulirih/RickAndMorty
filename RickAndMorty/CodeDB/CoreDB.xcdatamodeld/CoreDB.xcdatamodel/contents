@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="20G918" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Favorites" representedClassName="Favorites" syncable="YES">
+        <attribute name="characterId" attributeType="String"/>
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="locationName" attributeType="String"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="UserEntity" inverseName="favorite" inverseEntity="UserEntity"/>
+    </entity>
+    <entity name="UserEntity" representedClassName="UserEntity" syncable="YES">
+        <attribute name="email" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="password" attributeType="String"/>
+        <relationship name="favorite" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Favorites" inverseName="user" inverseEntity="Favorites"/>
+    </entity>
+    <elements>
+        <element name="UserEntity" positionX="-63" positionY="-18" width="128" height="118"/>
+        <element name="Favorites" positionX="99.55609130859375" positionY="-195.8567810058594" width="269.1513061523438" height="118"/>
+    </elements>
+</model>

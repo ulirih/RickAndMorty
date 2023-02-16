@@ -12,11 +12,16 @@ protocol AppCoordinatorProtocol: AnyObject {
     var navigationController: UINavigationController { get set }
     
     func start()
-    func goToCharactersListVC()
+    func goToLogin()
+    func goToRegistration()
+    func goToCharactersList()
     func goToCharacterDetail(character model: CharacterModel)
 }
 
 class AppCoordinator: AppCoordinatorProtocol {
+    
+    private let authService = AuthService.shared
+    
     var navigationController: UINavigationController
     
     init(navigationController : UINavigationController) {
@@ -24,10 +29,27 @@ class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func start() {
-        goToCharactersListVC()
+        authService.checkUser()
+        print(authService.isAuthorized)
+        if authService.isAuthorized {
+            goToCharactersList()
+        } else {
+            goToLogin()
+        }
     }
     
-    func goToCharactersListVC() {
+    func goToLogin() {
+        let loginVC = LoginViewController()
+        loginVC.viewModel = LoginViewModel(authService: authService, coordinator: self)
+        
+        push(controller: loginVC, animated: false)
+    }
+    
+    func goToRegistration() {
+        push(controller: RegistrationViewController())
+    }
+    
+    func goToCharactersList() {
         let viewModel = CharactersListViewModel(service: ApiService(), coordinator: self)
         let controller = CharactersListViewController()
         controller.viewModel = viewModel
