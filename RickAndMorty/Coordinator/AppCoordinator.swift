@@ -64,7 +64,9 @@ class AppCoordinator: AppCoordinatorProtocol {
     func goToCharacterDetail(character model: CharacterModel) {
         let vc = CharacterDetailViewController()
         vc.character = model
-        vc.viewModel = CharacterDetailViewModel(service: ApiService(), coordinator: self)
+        vc.viewModel = CharacterDetailViewModel(service: ApiService(), favoriteService: FavoritesService(),
+                                    authService: authService, coordinator: self)
+        vc.viewModel.characterId = model.id
         
         // if prevoius screen is the same, remove it
         if navigationController.viewControllers.last is CharacterDetailViewController {
@@ -82,7 +84,7 @@ class AppCoordinator: AppCoordinatorProtocol {
     
     func goToProfile() {
         let vc = UserViewController()
-        vc.viewModel = UserViewModel(authService: authService, coordinator: self)
+        vc.viewModel = UserViewModel(authService: authService, favoriteService: FavoritesService(), coordinator: self)
         push(controller: vc)
     }
     

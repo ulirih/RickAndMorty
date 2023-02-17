@@ -45,6 +45,11 @@ class CoreDataManager {
         try context.save()
     }
     
+    func delete(_ object: NSManagedObject) throws {
+        context.delete(object)
+        try context.save()
+    }
+    
 //    func getData(entityName: String) throws -> [NSManagedObject] {
 //        let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: entityName)
 //        let entities = try context.fetch(fetchRequest)

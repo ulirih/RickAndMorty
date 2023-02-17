@@ -10,7 +10,7 @@ import Combine
 
 protocol UserViewModelProtocol: AnyObject {
     var user: PassthroughSubject<UserEntity, Never> { get }
-    var favorites: PassthroughSubject<Favorites, Never> { get }
+    var favorites: PassthroughSubject<[FavoriteEntity], Never> { get }
     
     func fetchData() -> Void
     func logout() -> Void
@@ -18,18 +18,23 @@ protocol UserViewModelProtocol: AnyObject {
 
 class UserViewModel: UserViewModelProtocol {
     private var authService: AuthServiceProtocol
+    private var favoriteService: FavoritesServiceProtocol
     private weak var coordinator: AppCoordinatorProtocol?
     
     var user: PassthroughSubject<UserEntity, Never> = PassthroughSubject()
-    var favorites: PassthroughSubject<Favorites, Never> = PassthroughSubject()
+    var favorites: PassthroughSubject<[FavoriteEntity], Never> = PassthroughSubject()
     
-    init(authService: AuthServiceProtocol, coordinator: AppCoordinatorProtocol) {
+    init(authService: AuthServiceProtocol, favoriteService: FavoritesServiceProtocol, coordinator: AppCoordinatorProtocol) {
         self.authService = authService
+        self.favoriteService = favoriteService
         self.coordinator = coordinator
     }
     
     func fetchData() {
-        user.send(authService.user!)
+        let user = authService.user!
+        self.user.send(user)
+        let favorites = favoriteService.getFavorites(user: user)
+        self.favorites.send(favorites)
     }
     
     func logout() {

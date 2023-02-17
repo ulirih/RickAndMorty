@@ -25,10 +25,6 @@
 		55AED02E299E367C00648018 /* NetworkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED02D299E367C00648018 /* NetworkState.swift */; };
 		55AED030299E459100648018 /* UIVIewControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED02F299E459100648018 /* UIVIewControllerExtension.swift */; };
 		55AED033299E507700648018 /* CoreDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 55AED031299E507700648018 /* CoreDB.xcdatamodeld */; };
-		55AED039299E54DC00648018 /* UserEntity+CoreDataClass copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED035299E54DC00648018 /* UserEntity+CoreDataClass copy.swift */; };
-		55AED03A299E54DC00648018 /* Favorites+CoreDataProperties copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED036299E54DC00648018 /* Favorites+CoreDataProperties copy.swift */; };
-		55AED03B299E54DC00648018 /* Favorites+CoreDataClass copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED037299E54DC00648018 /* Favorites+CoreDataClass copy.swift */; };
-		55AED03C299E54DC00648018 /* UserEntity+CoreDataProperties copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED038299E54DC00648018 /* UserEntity+CoreDataProperties copy.swift */; };
 		55AED03E299E559900648018 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED03D299E559900648018 /* CoreDataManager.swift */; };
 		55AED040299E573800648018 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED03F299E573800648018 /* AuthService.swift */; };
 		55AED042299EA49900648018 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED041299EA49900648018 /* LoginViewController.swift */; };
@@ -39,6 +35,11 @@
 		55AED04C299F622000648018 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED04B299F622000648018 /* RegistrationViewModel.swift */; };
 		55AED04E299F784900648018 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED04D299F784900648018 /* UserViewController.swift */; };
 		55AED050299F7FCE00648018 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED04F299F7FCE00648018 /* UserViewModel.swift */; };
+		55AED052299FA05900648018 /* FavoritesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED051299FA05900648018 /* FavoritesService.swift */; };
+		55AED057299FA0B500648018 /* UserEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED053299FA0B500648018 /* UserEntity+CoreDataClass.swift */; };
+		55AED058299FA0B500648018 /* UserEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED054299FA0B500648018 /* UserEntity+CoreDataProperties.swift */; };
+		55AED059299FA0B500648018 /* FavoriteEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED055299FA0B500648018 /* FavoriteEntity+CoreDataClass.swift */; };
+		55AED05A299FA0B500648018 /* FavoriteEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED056299FA0B500648018 /* FavoriteEntity+CoreDataProperties.swift */; };
 		EB52A94B96F988F0C745748F /* Pods_RickAndMorty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ED41EE2CECAD89A8873315 /* Pods_RickAndMorty.framework */; };
 /* End PBXBuildFile section */
 
@@ -63,10 +64,6 @@
 		55AED02D299E367C00648018 /* NetworkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkState.swift; sourceTree = "<group>"; };
 		55AED02F299E459100648018 /* UIVIewControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIVIewControllerExtension.swift; sourceTree = "<group>"; };
 		55AED032299E507700648018 /* CoreDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = CoreDB.xcdatamodel; sourceTree = "<group>"; };
-		55AED035299E54DC00648018 /* UserEntity+CoreDataClass copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserEntity+CoreDataClass copy.swift"; sourceTree = "<group>"; };
-		55AED036299E54DC00648018 /* Favorites+CoreDataProperties copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Favorites+CoreDataProperties copy.swift"; sourceTree = "<group>"; };
-		55AED037299E54DC00648018 /* Favorites+CoreDataClass copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Favorites+CoreDataClass copy.swift"; sourceTree = "<group>"; };
-		55AED038299E54DC00648018 /* UserEntity+CoreDataProperties copy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserEntity+CoreDataProperties copy.swift"; sourceTree = "<group>"; };
 		55AED03D299E559900648018 /* CoreDataManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		55AED03F299E573800648018 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		55AED041299EA49900648018 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -77,6 +74,11 @@
 		55AED04B299F622000648018 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
 		55AED04D299F784900648018 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		55AED04F299F7FCE00648018 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
+		55AED051299FA05900648018 /* FavoritesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesService.swift; sourceTree = "<group>"; };
+		55AED053299FA0B500648018 /* UserEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		55AED054299FA0B500648018 /* UserEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		55AED055299FA0B500648018 /* FavoriteEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		55AED056299FA0B500648018 /* FavoriteEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		B1CE380B85573DFBD3E4AD25 /* Pods-RickAndMorty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMorty.debug.xcconfig"; path = "Target Support Files/Pods-RickAndMorty/Pods-RickAndMorty.debug.xcconfig"; sourceTree = "<group>"; };
 		DA232CBF55EE86B693F2DD7C /* Pods-RickAndMorty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMorty.release.xcconfig"; path = "Target Support Files/Pods-RickAndMorty/Pods-RickAndMorty.release.xcconfig"; sourceTree = "<group>"; };
 		F2ED41EE2CECAD89A8873315 /* Pods_RickAndMorty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickAndMorty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -199,6 +201,7 @@
 			children = (
 				55AED01A299A4EF700648018 /* ApiService.swift */,
 				55AED03F299E573800648018 /* AuthService.swift */,
+				55AED051299FA05900648018 /* FavoritesService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -239,10 +242,10 @@
 		55AED034299E543600648018 /* CodeDB */ = {
 			isa = PBXGroup;
 			children = (
-				55AED035299E54DC00648018 /* UserEntity+CoreDataClass copy.swift */,
-				55AED036299E54DC00648018 /* Favorites+CoreDataProperties copy.swift */,
-				55AED037299E54DC00648018 /* Favorites+CoreDataClass copy.swift */,
-				55AED038299E54DC00648018 /* UserEntity+CoreDataProperties copy.swift */,
+				55AED053299FA0B500648018 /* UserEntity+CoreDataClass.swift */,
+				55AED054299FA0B500648018 /* UserEntity+CoreDataProperties.swift */,
+				55AED055299FA0B500648018 /* FavoriteEntity+CoreDataClass.swift */,
+				55AED056299FA0B500648018 /* FavoriteEntity+CoreDataProperties.swift */,
 				55AED031299E507700648018 /* CoreDB.xcdatamodeld */,
 				55AED03D299E559900648018 /* CoreDataManager.swift */,
 			);
@@ -372,15 +375,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				55AED02E299E367C00648018 /* NetworkState.swift in Sources */,
+				55AED058299FA0B500648018 /* UserEntity+CoreDataProperties.swift in Sources */,
 				55AED044299EB70100648018 /* UITextFieldExtension.swift in Sources */,
-				55AED03A299E54DC00648018 /* Favorites+CoreDataProperties copy.swift in Sources */,
 				55AED013299A460E00648018 /* AppCoordinator.swift in Sources */,
 				55AED042299EA49900648018 /* LoginViewController.swift in Sources */,
 				55AED025299BC24000648018 /* CharacterDetailViewCell.swift in Sources */,
-				55AED03B299E54DC00648018 /* Favorites+CoreDataClass copy.swift in Sources */,
 				55AED046299EBEB600648018 /* StringExtension.swift in Sources */,
 				55AED048299EC45500648018 /* LoginViewModel.swift in Sources */,
 				55AED040299E573800648018 /* AuthService.swift in Sources */,
+				55AED05A299FA0B500648018 /* FavoriteEntity+CoreDataProperties.swift in Sources */,
 				55AED027299D3C2800648018 /* CharacterStatusView.swift in Sources */,
 				55AED030299E459100648018 /* UIVIewControllerExtension.swift in Sources */,
 				55AED04A299ECFEF00648018 /* RegistrationViewController.swift in Sources */,
@@ -390,15 +393,16 @@
 				55AED01E299A56B500648018 /* CharactersListViewModel.swift in Sources */,
 				55AED01B299A4EF700648018 /* ApiService.swift in Sources */,
 				55AED04C299F622000648018 /* RegistrationViewModel.swift in Sources */,
+				55AED059299FA0B500648018 /* FavoriteEntity+CoreDataClass.swift in Sources */,
 				55AECFFE299A409200648018 /* CharacterListViewController.swift in Sources */,
 				55AED04E299F784900648018 /* UserViewController.swift in Sources */,
 				55AED03E299E559900648018 /* CoreDataManager.swift in Sources */,
 				55AED033299E507700648018 /* CoreDB.xcdatamodeld in Sources */,
 				55AECFFA299A409200648018 /* AppDelegate.swift in Sources */,
 				55AED029299D4CFF00648018 /* CharacterDetailViewModel.swift in Sources */,
+				55AED057299FA0B500648018 /* UserEntity+CoreDataClass.swift in Sources */,
 				55AED02B299E327500648018 /* CharacterHeaderViewCell.swift in Sources */,
-				55AED039299E54DC00648018 /* UserEntity+CoreDataClass copy.swift in Sources */,
-				55AED03C299E54DC00648018 /* UserEntity+CoreDataProperties copy.swift in Sources */,
+				55AED052299FA05900648018 /* FavoritesService.swift in Sources */,
 				55AED023299BB07000648018 /* CharacterDetailViewController.swift in Sources */,
 				55AED016299A4D7B00648018 /* CharactersListModel.swift in Sources */,
 			);

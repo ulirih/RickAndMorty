@@ -1,8 +1,8 @@
 //
 //  UserEntity+CoreDataProperties.swift
-//  
+//  RickAndMorty
 //
-//  Created by andrey perevedniuk on 16.02.2023.
+//  Created by andrey perevedniuk on 17.02.2023.
 //
 //
 
@@ -28,15 +28,19 @@ extension UserEntity {
 extension UserEntity {
 
     @objc(addFavoriteObject:)
-    @NSManaged public func addToFavorite(_ value: Favorites)
+    @NSManaged public func addToFavorite(_ value: FavoriteEntity)
 
     @objc(removeFavoriteObject:)
-    @NSManaged public func removeFromFavorite(_ value: Favorites)
+    @NSManaged public func removeFromFavorite(_ value: FavoriteEntity)
 
     @objc(addFavorite:)
     @NSManaged public func addToFavorite(_ values: NSSet)
 
     @objc(removeFavorite:)
     @NSManaged public func removeFromFavorite(_ values: NSSet)
+
+}
+
+extension UserEntity : Identifiable {
 
 }

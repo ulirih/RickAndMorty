@@ -27,26 +27,31 @@ class CharacterDetailViewController: UIViewController {
         
         setupConstraints()
         setupBindings()
-        
-        viewModel.fetchAlsoCharacters()
 
         dataSource = configureDataSource()
         var snapshot = dataSource.snapshot()
         snapshot.appendSections([.detail, .alsoHeader, .also])
-        snapshot.appendItems([.alsoHeader("See also characters")], toSection: .alsoHeader)
-        snapshot.appendItems([.detail(character)], toSection: .detail)
         dataSource.apply(snapshot)
+        
+        viewModel.fetchData()
     }
     
     private func setupBindings() {
+        viewModel.detailCharacter
+            .sink { character in
+                var snapshot = self.dataSource.snapshot()
+                snapshot.appendItems([.detail(character)], toSection: .detail)
+                self.dataSource.apply(snapshot)
+            }
+            .store(in: &cancellable)
+        
         viewModel.alsoCharacters
-            .sink { _ in
-                
-            } receiveValue: { [unowned self] characters in
+            .sink { [unowned self] characters in
                 var snapshot = self.dataSource.snapshot()
                 let ar = characters.shuffled().map { model in
                     return CharacterDetailListRow.also(model)
                 }
+                snapshot.appendItems([.alsoHeader("See also characters")], toSection: .alsoHeader)
                 snapshot.appendItems(ar, toSection: .also)
                 self.dataSource.apply(snapshot)
             }
@@ -63,17 +68,37 @@ class CharacterDetailViewController: UIViewController {
                 self.showAlertError(message: error.getDefaultTextError())
             }
             .store(in: &cancellable)
+        
+        viewModel.isFavorite
+            .sink { [unowned self] isFavorite in
+                navigationItem.rightBarButtonItem?.image = UIImage(
+                    systemName: isFavorite ? "heart.fill" : "heart"
+                )?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal)
+            }
+            .store(in: &cancellable)
     }
     
     private func setupViews() {
         title = character.name
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
+        let rightBarButton = UIBarButtonItem(
+            image: UIImage(systemName: "heart")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(didTapFavorite)
+        )
+        navigationItem.rightBarButtonItem = rightBarButton
         
         tableView.delegate = self
         
         view.addSubview(tableView)
         view.addSubview(activityIndicator)
+    }
+    
+    @objc
+    private func didTapFavorite() {
+        viewModel.toggleFavorite(character: character)
     }
     
     private func setupConstraints() {

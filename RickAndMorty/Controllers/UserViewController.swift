@@ -22,6 +22,7 @@ class UserViewController: UIViewController {
         view.addSubview(userNameLabel)
         view.addSubview(userEmailLabel)
         view.addSubview(logoutButton)
+        view.addSubview(tableView)
     }
 
     override func viewDidLoad() {
@@ -40,6 +41,12 @@ class UserViewController: UIViewController {
                 self.title = user.name
                 self.userNameLabel.text = user.name
                 self.userEmailLabel.text = user.email
+            }
+            .store(in: &cancellable)
+        
+        viewModel.favorites
+            .sink { [unowned self] favorites in
+                tableView.backgroundView = favorites.isEmpty ? self.emptyListLabel : nil
             }
             .store(in: &cancellable)
     }
@@ -76,7 +83,21 @@ class UserViewController: UIViewController {
             make.leading.trailing.equalTo(view).inset(16)
             make.height.equalTo(45)
         }
+        
+        tableView.snp.makeConstraints { make in
+            make.top.equalTo(userImage.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview()
+            make.bottom.equalTo(logoutButton.snp.top).offset(-16)
+        }
     }
+    
+    private let tableView: UITableView = {
+        let header = UILabel()
+        header.text = "hfdjhk"
+        let tableView = UITableView()
+        tableView.tableHeaderView = header
+        return tableView
+    }()
     
     private let userNameLabel: UILabel = {
         let label = UILabel()
@@ -89,6 +110,15 @@ class UserViewController: UIViewController {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14)
         label.textColor = .secondaryLabel
+        return label
+    }()
+    
+    private let emptyListLabel: UILabel = {
+        let label = UILabel()
+        label.font = .systemFont(ofSize: 18)
+        label.textAlignment = .center
+        label.textColor = .secondaryLabel
+        label.text = "Favorite list is empty"
         return label
     }()
     
