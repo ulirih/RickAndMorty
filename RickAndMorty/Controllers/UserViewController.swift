@@ -14,6 +14,7 @@ class UserViewController: UIViewController {
     var viewModel: UserViewModelProtocol!
     
     private var cancellable: [AnyCancellable] = []
+    private var favorites: [FavoriteEntity] = []
     
     override func loadView() {
         super.loadView()
@@ -22,7 +23,7 @@ class UserViewController: UIViewController {
         view.addSubview(userNameLabel)
         view.addSubview(userEmailLabel)
         view.addSubview(logoutButton)
-        view.addSubview(tableView)
+        view.addSubview(collectionView)
     }
 
     override func viewDidLoad() {
@@ -46,13 +47,19 @@ class UserViewController: UIViewController {
         
         viewModel.favorites
             .sink { [unowned self] favorites in
-                tableView.backgroundView = favorites.isEmpty ? self.emptyListLabel : nil
+                collectionView.backgroundView = favorites.isEmpty ? self.emptyListLabel : nil
+                self.favorites = favorites
+                self.collectionView.reloadData()
             }
             .store(in: &cancellable)
     }
     
     private func setupViews() {
         view.backgroundColor = .systemBackground
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        
         logoutButton.addTarget(self, action: #selector(didTapLogout), for: .touchUpInside)
     }
     
@@ -84,19 +91,19 @@ class UserViewController: UIViewController {
             make.height.equalTo(45)
         }
         
-        tableView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(userImage.snp.bottom).offset(16)
             make.leading.trailing.equalToSuperview()
             make.bottom.equalTo(logoutButton.snp.top).offset(-16)
         }
     }
     
-    private let tableView: UITableView = {
+    private let collectionView: UICollectionView = {
         let header = UILabel()
         header.text = "hfdjhk"
-        let tableView = UITableView()
-        tableView.tableHeaderView = header
-        return tableView
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.register(CharacterFavoriteViewCell.self, forCellWithReuseIdentifier: CharacterFavoriteViewCell.reusableId)
+        return collectionView
     }()
     
     private let userNameLabel: UILabel = {
@@ -139,5 +146,31 @@ class UserViewController: UIViewController {
         button.layer.cornerRadius = 8
         return button
     }()
+}
 
+extension UserViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterFavoriteViewCell.reusableId, for: indexPath) as! CharacterFavoriteViewCell
+        cell.configure(at: favorites[indexPath.row])
+        return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return favorites.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (collectionView.bounds.width / 2) - 16 - 10
+        let height = width * 1.2
+        
+        return CGSize(width: width, height: height)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 12, left: 16, bottom: 12, right: 16)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(indexPath)
+    }
 }

@@ -10,11 +10,11 @@ import Combine
 
 class CharacterDetailViewController: UIViewController {
     
-    var character: CharacterModel!
     var viewModel: CharacterDetailViewModelProtocol!
     
     private var dataSource: UITableViewDiffableDataSource<CharacterDetailListSection, CharacterDetailListRow>!
     private var cancellable: [AnyCancellable] = []
+    private var character: CharacterModel?
     
     override func loadView() {
         super.loadView()
@@ -38,7 +38,10 @@ class CharacterDetailViewController: UIViewController {
     
     private func setupBindings() {
         viewModel.detailCharacter
-            .sink { character in
+            .sink { [unowned self] character in
+                self.title = character.name
+                self.character = character
+                
                 var snapshot = self.dataSource.snapshot()
                 snapshot.appendItems([.detail(character)], toSection: .detail)
                 self.dataSource.apply(snapshot)
@@ -79,7 +82,6 @@ class CharacterDetailViewController: UIViewController {
     }
     
     private func setupViews() {
-        title = character.name
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         let rightBarButton = UIBarButtonItem(
@@ -98,6 +100,7 @@ class CharacterDetailViewController: UIViewController {
     
     @objc
     private func didTapFavorite() {
+        guard let character = self.character else { return }
         viewModel.toggleFavorite(character: character)
     }
     
@@ -166,10 +169,6 @@ class CharacterDetailViewController: UIViewController {
         case detail(CharacterModel)
         case alsoHeader(String)
         case also(CharacterModel)
-    }
-    
-    deinit {
-        print("deinit")
     }
 }
 

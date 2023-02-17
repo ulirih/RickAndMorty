@@ -63,7 +63,6 @@ class AppCoordinator: AppCoordinatorProtocol {
     
     func goToCharacterDetail(character model: CharacterModel) {
         let vc = CharacterDetailViewController()
-        vc.character = model
         vc.viewModel = CharacterDetailViewModel(service: ApiService(), favoriteService: FavoritesService(),
                                     authService: authService, coordinator: self)
         vc.viewModel.characterId = model.id
