@@ -37,6 +37,8 @@
 		55AED048299EC45500648018 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED047299EC45500648018 /* LoginViewModel.swift */; };
 		55AED04A299ECFEF00648018 /* RegistrationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED049299ECFEF00648018 /* RegistrationViewController.swift */; };
 		55AED04C299F622000648018 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED04B299F622000648018 /* RegistrationViewModel.swift */; };
+		55AED04E299F784900648018 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED04D299F784900648018 /* UserViewController.swift */; };
+		55AED050299F7FCE00648018 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED04F299F7FCE00648018 /* UserViewModel.swift */; };
 		EB52A94B96F988F0C745748F /* Pods_RickAndMorty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ED41EE2CECAD89A8873315 /* Pods_RickAndMorty.framework */; };
 /* End PBXBuildFile section */
 
@@ -73,6 +75,8 @@
 		55AED047299EC45500648018 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		55AED049299ECFEF00648018 /* RegistrationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewController.swift; sourceTree = "<group>"; };
 		55AED04B299F622000648018 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		55AED04D299F784900648018 /* UserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		55AED04F299F7FCE00648018 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		B1CE380B85573DFBD3E4AD25 /* Pods-RickAndMorty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMorty.debug.xcconfig"; path = "Target Support Files/Pods-RickAndMorty/Pods-RickAndMorty.debug.xcconfig"; sourceTree = "<group>"; };
 		DA232CBF55EE86B693F2DD7C /* Pods-RickAndMorty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMorty.release.xcconfig"; path = "Target Support Files/Pods-RickAndMorty/Pods-RickAndMorty.release.xcconfig"; sourceTree = "<group>"; };
 		F2ED41EE2CECAD89A8873315 /* Pods_RickAndMorty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickAndMorty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +154,7 @@
 				55AED022299BB07000648018 /* CharacterDetailViewController.swift */,
 				55AED041299EA49900648018 /* LoginViewController.swift */,
 				55AED049299ECFEF00648018 /* RegistrationViewController.swift */,
+				55AED04D299F784900648018 /* UserViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 				55AED028299D4CFF00648018 /* CharacterDetailViewModel.swift */,
 				55AED047299EC45500648018 /* LoginViewModel.swift */,
 				55AED04B299F622000648018 /* RegistrationViewModel.swift */,
+				55AED04F299F7FCE00648018 /* UserViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -378,12 +384,14 @@
 				55AED027299D3C2800648018 /* CharacterStatusView.swift in Sources */,
 				55AED030299E459100648018 /* UIVIewControllerExtension.swift in Sources */,
 				55AED04A299ECFEF00648018 /* RegistrationViewController.swift in Sources */,
+				55AED050299F7FCE00648018 /* UserViewModel.swift in Sources */,
 				55AED018299A4E6C00648018 /* CharacterModel.swift in Sources */,
 				55AED021299A86FC00648018 /* CharacterViewCell.swift in Sources */,
 				55AED01E299A56B500648018 /* CharactersListViewModel.swift in Sources */,
 				55AED01B299A4EF700648018 /* ApiService.swift in Sources */,
 				55AED04C299F622000648018 /* RegistrationViewModel.swift in Sources */,
 				55AECFFE299A409200648018 /* CharacterListViewController.swift in Sources */,
+				55AED04E299F784900648018 /* UserViewController.swift in Sources */,
 				55AED03E299E559900648018 /* CoreDataManager.swift in Sources */,
 				55AED033299E507700648018 /* CoreDB.xcdatamodeld in Sources */,
 				55AECFFA299A409200648018 /* AppDelegate.swift in Sources */,

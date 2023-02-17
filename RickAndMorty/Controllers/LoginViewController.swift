@@ -65,6 +65,10 @@ class LoginViewController: UIViewController {
     
     private func setupView() {
         view.backgroundColor = .systemBackground
+        
+        loginTextField.delegate = self
+        passwordTextField.delegate = self
+        
         loginButton.addTarget(self, action: #selector(didTapLogin), for: .touchUpInside)
         registrationButton.addTarget(self, action: #selector(didTapRegister), for: .touchUpInside)
     }
@@ -118,6 +122,7 @@ class LoginViewController: UIViewController {
         field.keyboardType = .emailAddress
         field.borderStyle = .roundedRect
         field.placeholder = "Email"
+        field.autocapitalizationType = .none
         return field
     }()
     
@@ -164,4 +169,11 @@ class LoginViewController: UIViewController {
         return label
     }()
 
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

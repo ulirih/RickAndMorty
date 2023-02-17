@@ -38,6 +38,14 @@ class CharactersListViewController: UIViewController {
         view.backgroundColor = .systemBackground
         navigationController?.navigationBar.prefersLargeTitles = true
         
+        let rightBarButton = UIBarButtonItem(
+            image: UIImage(systemName: "person.fill")?.withTintColor(.systemOrange, renderingMode: .alwaysOriginal),
+            style: .plain,
+            target: self,
+            action: #selector(didTapProfile)
+        )
+        navigationItem.rightBarButtonItem = rightBarButton
+        
         tableView.delegate = self
         
         view.addSubview(tableView)
@@ -79,6 +87,11 @@ class CharactersListViewController: UIViewController {
         }
         
         return dataSource
+    }
+    
+    @objc
+    private func didTapProfile() {
+        viewModel.didTapProfile()
     }
     
     private let activityIndicator: UIActivityIndicatorView = {

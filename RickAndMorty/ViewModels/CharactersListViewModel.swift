@@ -16,6 +16,7 @@ protocol CharactersListViewModelProtocol: AnyObject {
     
     func fetchCharacters() -> Void
     func didSelectCharacter(character: CharacterModel) -> Void
+    func didTapProfile() -> Void
 }
 
 class CharactersListViewModel: CharactersListViewModelProtocol {
@@ -55,5 +56,9 @@ class CharactersListViewModel: CharactersListViewModelProtocol {
     
     func didSelectCharacter(character: CharacterModel) {
         coordinator?.goToCharacterDetail(character: character)
+    }
+    
+    func didTapProfile() {
+        coordinator?.goToProfile()
     }
 }

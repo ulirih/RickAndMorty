@@ -16,6 +16,8 @@ protocol AppCoordinatorProtocol: AnyObject {
     func goToRegistration()
     func goToCharactersList()
     func goToCharacterDetail(character model: CharacterModel)
+    func goToProfile()
+    func resetToLogIn()
 }
 
 class AppCoordinator: AppCoordinatorProtocol {
@@ -29,7 +31,7 @@ class AppCoordinator: AppCoordinatorProtocol {
     
     func start() {
         authService.checkUser()
-        print(authService.isAuthorized)
+
         if authService.isAuthorized {
             goToCharactersList()
         } else {
@@ -56,14 +58,7 @@ class AppCoordinator: AppCoordinatorProtocol {
         let controller = CharactersListViewController()
         controller.viewModel = viewModel
         
-        let rootVC = navigationController.viewControllers.first
-        if (rootVC is CharactersListViewController) {
-            navigationController.setViewControllers([controller], animated: true)
-            return
-        }
-
-        
-        push(controller: controller, animated: false)
+        navigationController.setViewControllers([controller], animated: true)
     }
     
     func goToCharacterDetail(character model: CharacterModel) {
@@ -83,6 +78,18 @@ class AppCoordinator: AppCoordinatorProtocol {
         }
         
         push(controller: vc)
+    }
+    
+    func goToProfile() {
+        let vc = UserViewController()
+        vc.viewModel = UserViewModel(authService: authService, coordinator: self)
+        push(controller: vc)
+    }
+    
+    func resetToLogIn() {
+        let loginVC = LoginViewController()
+        loginVC.viewModel = LoginViewModel(authService: authService, coordinator: self)
+        navigationController.setViewControllers([loginVC], animated: true)
     }
     
     private func push(controller: UIViewController, animated: Bool = true) {
