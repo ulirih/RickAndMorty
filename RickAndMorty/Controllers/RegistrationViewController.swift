@@ -6,13 +6,173 @@
 //
 
 import UIKit
+import SnapKit
+import Combine
 
 class RegistrationViewController: UIViewController {
+    
+    var viewModel: RegistrationViewModelProtocol!
+    
+    @Published private var email = ""
+    @Published private var password = ""
+    @Published private var name = ""
+    
+    private var cancellable: [AnyCancellable] = []
+    
+    override func loadView() {
+        super.loadView()
+        
+        view.addSubview(logoImage)
+        view.addSubview(emailTextField)
+        view.addSubview(passwordTextField)
+        view.addSubview(nameTextField)
+        view.addSubview(registrationButton)
+        view.addSubview(errorLabel)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = .systemBackground
+        setupViews()
+        setupConstraints()
+        setupBindings()
     }
+    
+    private func setupViews() {
+        view.backgroundColor = .systemBackground
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        nameTextField.delegate = self
+        registrationButton.addTarget(self, action: #selector(didTapRegistration), for: .touchUpInside)
+    }
+    
+    @objc
+    private func didTapRegistration() {
+        viewModel.registration(email: email, password: password, name: name)
+    }
+    
+    private func setupBindings() {
+        emailTextField.textPublisher
+            .sink { [unowned self] text in
+                self.email = text
+            }
+            .store(in: &cancellable)
+        
+        passwordTextField.textPublisher
+            .sink { [unowned self] text in
+                self.password = text
+            }
+            .store(in: &cancellable)
+        
+        nameTextField.textPublisher
+            .sink { [unowned self] text in
+                self.name = text
+            }
+            .store(in: &cancellable)
+        
+        // validation
+        Publishers.CombineLatest3($email, $password, $name)
+            .sink { [unowned self] login, password, name in
+                registrationButton.isEnabled = login.isValidEmail() && !password.isEmpty && !name.isEmpty
+             }
+            .store(in: &cancellable)
+        
+        viewModel.error
+            .sink { [unowned self] errorText in
+                self.errorLabel.text = errorText
+            }
+            .store(in: &cancellable)
+    }
+    
+    private func setupConstraints() {
+        logoImage.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(view).multipliedBy(0.4)
+        }
+        
+        emailTextField.snp.makeConstraints { make in
+            make.top.equalTo(logoImage.snp.bottom).offset(-15)
+            make.leading.trailing.equalToSuperview().inset(24)
+        }
+        
+        passwordTextField.snp.makeConstraints { make in
+            make.top.equalTo(emailTextField.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(24)
+        }
+        
+        nameTextField.snp.makeConstraints { make in
+            make.top.equalTo(passwordTextField.snp.bottom).offset(16)
+            make.leading.trailing.equalToSuperview().inset(24)
+        }
+        
+        errorLabel.snp.makeConstraints { make in
+            make.top.equalTo(nameTextField.snp.bottom).offset(32)
+            make.leading.trailing.equalToSuperview().inset(16)
+        }
+        
+        registrationButton.snp.makeConstraints { make in
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-32)
+            make.height.equalTo(46)
+            make.leading.trailing.equalToSuperview().inset(24)
+        }
+    }
+    
+    private let emailTextField: UITextField = {
+        let field = UITextField()
+        field.keyboardType = .emailAddress
+        field.borderStyle = .roundedRect
+        field.placeholder = "Email"
+        field.autocapitalizationType = .none
+        return field
+    }()
+    
+    private let passwordTextField: UITextField = {
+        let field = UITextField()
+        field.keyboardType = .default
+        field.isSecureTextEntry = true
+        field.borderStyle = .roundedRect
+        field.placeholder = "Password"
+        return field
+    }()
+    
+    private let nameTextField: UITextField = {
+        let field = UITextField()
+        field.keyboardType = .default
+        field.borderStyle = .roundedRect
+        field.placeholder = "Name"
+        return field
+    }()
+    
+    private let registrationButton: UIButton = {
+        let button = UIButton()
+        button.backgroundColor = .systemOrange
+        button.setTitle("Registration", for: .normal)
+        button.setTitleColor(UIColor.white, for: .normal)
+        button.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
+        button.titleLabel?.font = .boldSystemFont(ofSize: 16)
+        button.layer.cornerRadius = 8
+        return button
+    }()
+    
+    private let logoImage: UIImageView = {
+        let img = UIImageView(image: UIImage(named: "RegistrationLogoRickMorty"))
+        return img
+    }()
+    
+    private let errorLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .systemRed
+        label.font = .systemFont(ofSize: 18)
+        label.textAlignment = .center
+        return label
+    }()
+}
 
+extension RegistrationViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

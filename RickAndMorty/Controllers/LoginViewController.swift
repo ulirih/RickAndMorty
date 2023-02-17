@@ -71,7 +71,7 @@ class LoginViewController: UIViewController {
     
     @objc
     private func didTapLogin() {
-        viewModel.login(login: login, pasword: password)
+        viewModel.signIn(login: login, pasword: password)
     }
     
     @objc
@@ -139,7 +139,7 @@ class LoginViewController: UIViewController {
     private let loginButton: UIButton = {
         let button = UIButton()
         button.backgroundColor = .systemOrange
-        button.setTitle("Login", for: .normal)
+        button.setTitle("Sign in", for: .normal)
         button.setTitleColor(UIColor.white, for: .normal)
         button.setTitleColor(UIColor.white.withAlphaComponent(0.5), for: .highlighted)
         button.titleLabel?.font = .boldSystemFont(ofSize: 16)

@@ -10,6 +10,7 @@ import Foundation
 enum AuthError: Error {
     case notFoundUser
     case incorrectPassword
+    case userAlreadyExist
 }
 
 protocol AuthServiceProtocol: AnyObject {
@@ -23,7 +24,7 @@ protocol AuthServiceProtocol: AnyObject {
 }
 
 class AuthService: AuthServiceProtocol {
-    private let tokenKey = "userToken"
+    private let tokenKey = "userTokenKey"
     private let defaults = UserDefaults.standard
     private var dbManager = CoreDataManager.shared
     
@@ -61,7 +62,23 @@ class AuthService: AuthServiceProtocol {
     }
     
     func register(email: String, password: String, name: String) throws -> Bool {
-        return false
+        let predicate = NSPredicate(format: "email == %@", email)
+        let result = try dbManager.getData(entityName: "UserEntity", predicate: predicate, sort: nil)
+        
+        if !result.isEmpty {
+            throw AuthError.userAlreadyExist
+        }
+        
+        let user = UserEntity(context: dbManager.context)
+        user.id = UUID()
+        user.email = email
+        user.password = password
+        user.name = name
+        try dbManager.insert(user)
+        
+        _ = try login(email: email, password: password)
+        
+        return true
     }
     
     func logout() {

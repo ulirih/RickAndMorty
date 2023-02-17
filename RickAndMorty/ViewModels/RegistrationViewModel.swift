@@ -1,21 +1,20 @@
 //
-//  LoginViewModel.swift
+//  RegistrationViewModel.swift
 //  RickAndMorty
 //
-//  Created by andrey perevedniuk on 16.02.2023.
+//  Created by andrey perevedniuk on 17.02.2023.
 //
 
 import Foundation
 import Combine
 
-protocol LoginViewModelProtocol: AnyObject {
+protocol RegistrationViewModelProtocol: AnyObject {
     var error: PassthroughSubject<String, Never> { get }
     
-    func signIn(login: String, pasword: String) -> Void
-    func goToRegistration() -> Void
+    func registration(email: String, password: String, name: String) -> Void
 }
 
-class LoginViewModel: LoginViewModelProtocol {
+class RegistrationViewModel: RegistrationViewModelProtocol {
     private var authService: AuthServiceProtocol
     private weak var coordinator: AppCoordinatorProtocol?
     
@@ -26,17 +25,13 @@ class LoginViewModel: LoginViewModelProtocol {
         self.coordinator = coordinator
     }
     
-    func signIn(login: String, pasword: String) {
+    func registration(email: String, password: String, name: String) {
         error.send("")
         do {
-            _ = try authService.login(email: login, password: pasword)
+            _ = try authService.register(email: email, password: password, name: name)
             coordinator?.goToCharactersList()
         } catch {
-            self.error.send("Incorrect login or password")
+            self.error.send("User already exist")
         }
-    }
-    
-    func goToRegistration() {
-        coordinator?.goToRegistration()
     }
 }

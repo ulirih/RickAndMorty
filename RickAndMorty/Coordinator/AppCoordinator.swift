@@ -19,7 +19,6 @@ protocol AppCoordinatorProtocol: AnyObject {
 }
 
 class AppCoordinator: AppCoordinatorProtocol {
-    
     private let authService = AuthService.shared
     
     var navigationController: UINavigationController
@@ -46,13 +45,23 @@ class AppCoordinator: AppCoordinatorProtocol {
     }
     
     func goToRegistration() {
-        push(controller: RegistrationViewController())
+        let vc = RegistrationViewController()
+        vc.viewModel = RegistrationViewModel(authService: authService, coordinator: self)
+        
+        push(controller: vc)
     }
     
     func goToCharactersList() {
         let viewModel = CharactersListViewModel(service: ApiService(), coordinator: self)
         let controller = CharactersListViewController()
         controller.viewModel = viewModel
+        
+        let rootVC = navigationController.viewControllers.first
+        if (rootVC is CharactersListViewController) {
+            navigationController.setViewControllers([controller], animated: true)
+            return
+        }
+
         
         push(controller: controller, animated: false)
     }
