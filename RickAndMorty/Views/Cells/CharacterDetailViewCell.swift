@@ -20,7 +20,7 @@ class CharacterDetailViewCell: UITableViewCell {
     func configure(model: CharacterModel) {
         image.kf.setImage(with: URL(string: model.image))
         locationValueLabel.text = model.location.name
-        speciesValueLabel.text = model.species.rawValue
+        speciesValueLabel.text = model.species
         statusView.status = model.status
     }
     

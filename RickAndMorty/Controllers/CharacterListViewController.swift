@@ -79,10 +79,16 @@ class CharactersListViewController: UIViewController {
     
     private func configureDataSource() -> UITableViewDiffableDataSource<CharacterListSection, CharacterModel> {
         let dataSource = UITableViewDiffableDataSource<CharacterListSection, CharacterModel>(tableView: tableView) {
-            tableView, indexPath, model in
+            [unowned self] tableView, indexPath, model in
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: CharacterViewCell.reusableId, for: indexPath) as! CharacterViewCell
             cell.configure(model: model)
             cell.contentView.layer.masksToBounds = true
+            
+            if tableView.numberOfRows(inSection: indexPath.section) == indexPath.row + 1 {
+                self.viewModel.fetchCharacters()
+            }
+            
             return cell
         }
         

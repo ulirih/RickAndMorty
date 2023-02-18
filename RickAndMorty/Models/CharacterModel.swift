@@ -11,7 +11,7 @@ struct CharacterModel: Codable, Hashable {
     let id: Int
     let name: String
     let status: CharacterStatus
-    let species: Species
+    let species: String
     let type: String
     let gender: Gender
     let origin, location: Location
@@ -34,11 +34,6 @@ enum Gender: String, Codable, Hashable {
 struct Location: Codable, Hashable {
     let name: String
     let url: String
-}
-
-enum Species: String, Codable, Hashable {
-    case alien = "Alien"
-    case human = "Human"
 }
 
 enum CharacterStatus: String, Codable, Hashable {

@@ -29,6 +29,9 @@ class CharactersListViewModel: CharactersListViewModelProtocol {
     private let service: ApiServiceProtocol
     private weak var coordinator: AppCoordinatorProtocol?
     
+    private var currentPage: Int = 0
+    private var isAllowLoadMore = true
+    
     init(service: ApiServiceProtocol, coordinator: AppCoordinatorProtocol) {
         self.service = service
         self.coordinator = coordinator
@@ -39,15 +42,19 @@ class CharactersListViewModel: CharactersListViewModelProtocol {
     }
     
     func fetchCharacters() {
-        isLoading.send(true)
+        guard isAllowLoadMore else { return }
         
-        service.getCharacters(page: 1)
+        isLoading.send(true)
+        currentPage += 1
+        
+        service.getCharacters(page: currentPage)
             .sink { [unowned self] complettionType in
                 if case .failure(let error) = complettionType {
                     self.isLoading.send(false)
                     self.error.send(error)
                 }
             } receiveValue: { [unowned self] data in
+                self.isAllowLoadMore = data.info.pages > self.currentPage
                 self.isLoading.send(false)
                 self.characters.send(data.results)
             }

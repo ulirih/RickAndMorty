@@ -26,7 +26,7 @@ enum ApiServiceError: Error {
 }
 
 protocol ApiServiceProtocol {
-    func getCharacters(page: Int8) -> AnyPublisher<CharactersListModel, ApiServiceError>
+    func getCharacters(page: Int) -> AnyPublisher<CharactersListModel, ApiServiceError>
     func getCharacterDetail(id: Int) -> AnyPublisher<CharacterModel, ApiServiceError>
 }
 
@@ -37,7 +37,7 @@ class ApiService: ApiServiceProtocol {
         return baseRequest(for: urlString)
     }
     
-    func getCharacters(page: Int8) -> AnyPublisher<CharactersListModel, ApiServiceError> {
+    func getCharacters(page: Int) -> AnyPublisher<CharactersListModel, ApiServiceError> {
         let urlString = "https://rickandmortyapi.com/api/character/?page=\(page)"
         return baseRequest(for: urlString)
     }
@@ -52,6 +52,7 @@ class ApiService: ApiServiceProtocol {
             .decode(type: T.self, decoder: JSONDecoder())
             .receive(on: DispatchQueue.main)
             .catch { (error) -> AnyPublisher<T, ApiServiceError> in
+                print(error)
                 if !NetworkState.shared.isConnected {
                     return Fail(error: ApiServiceError.connectionError).eraseToAnyPublisher()
                 }
