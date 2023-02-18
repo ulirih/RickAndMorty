@@ -38,12 +38,23 @@ class RegistrationViewController: UIViewController {
         setupBindings()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        startObservingKeyboardAppears()
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        NotificationCenter.default.removeObserver(self)
+    }
+    
     private func setupViews() {
         view.backgroundColor = .systemBackground
         
         emailTextField.delegate = self
         passwordTextField.delegate = self
         nameTextField.delegate = self
+        
         registrationButton.addTarget(self, action: #selector(didTapRegistration), for: .touchUpInside)
     }
     
@@ -85,6 +96,34 @@ class RegistrationViewController: UIViewController {
             .store(in: &cancellable)
     }
     
+    private func startObservingKeyboardAppears() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil);
+
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil);
+    }
+    
+    @objc
+    func keyboardWillShow(notification: NSNotification) {
+        
+        let textField = [nameTextField, passwordTextField, emailTextField].first { $0.isFirstResponder }
+        guard let textField = textField else { return }
+        
+        let info = notification.userInfo!
+        let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        
+        let offset = textField.frame.height + 20 // + bottom padding
+        let isHidedTextField = (view.frame.height - keyboardFrame.height - offset) < textField.frame.origin.y
+        
+        if isHidedTextField {
+            self.view.frame.origin.y = -offset
+        }
+    }
+
+    @objc
+    func keyboardWillHide(notification: NSNotification) {
+        self.view.frame.origin.y = 0 // Move view to original position
+    }
+    
     private func setupConstraints() {
         logoImage.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide)
@@ -119,6 +158,8 @@ class RegistrationViewController: UIViewController {
         }
     }
     
+    
+    // MARK: Views
     private let emailTextField: UITextField = {
         let field = UITextField()
         field.keyboardType = .emailAddress
