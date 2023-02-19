@@ -41,6 +41,7 @@
 		55AED059299FA0B500648018 /* FavoriteEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED055299FA0B500648018 /* FavoriteEntity+CoreDataClass.swift */; };
 		55AED05A299FA0B500648018 /* FavoriteEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED056299FA0B500648018 /* FavoriteEntity+CoreDataProperties.swift */; };
 		55AED05C29A00ECE00648018 /* CharacterFavoriteViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED05B29A00ECE00648018 /* CharacterFavoriteViewCell.swift */; };
+		55AED05E29A2566700648018 /* RMTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55AED05D29A2566700648018 /* RMTextField.swift */; };
 		EB52A94B96F988F0C745748F /* Pods_RickAndMorty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2ED41EE2CECAD89A8873315 /* Pods_RickAndMorty.framework */; };
 /* End PBXBuildFile section */
 
@@ -81,6 +82,7 @@
 		55AED055299FA0B500648018 /* FavoriteEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		55AED056299FA0B500648018 /* FavoriteEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FavoriteEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		55AED05B29A00ECE00648018 /* CharacterFavoriteViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterFavoriteViewCell.swift; sourceTree = "<group>"; };
+		55AED05D29A2566700648018 /* RMTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RMTextField.swift; sourceTree = "<group>"; };
 		B1CE380B85573DFBD3E4AD25 /* Pods-RickAndMorty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMorty.debug.xcconfig"; path = "Target Support Files/Pods-RickAndMorty/Pods-RickAndMorty.debug.xcconfig"; sourceTree = "<group>"; };
 		DA232CBF55EE86B693F2DD7C /* Pods-RickAndMorty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RickAndMorty.release.xcconfig"; path = "Target Support Files/Pods-RickAndMorty/Pods-RickAndMorty.release.xcconfig"; sourceTree = "<group>"; };
 		F2ED41EE2CECAD89A8873315 /* Pods_RickAndMorty.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RickAndMorty.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -169,6 +171,7 @@
 				55AED01F299A86BF00648018 /* Cells */,
 				55AED004299A409500648018 /* LaunchScreen.storyboard */,
 				55AED026299D3C2800648018 /* CharacterStatusView.swift */,
+				55AED05D29A2566700648018 /* RMTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -407,6 +410,7 @@
 				55AED057299FA0B500648018 /* UserEntity+CoreDataClass.swift in Sources */,
 				55AED02B299E327500648018 /* CharacterHeaderViewCell.swift in Sources */,
 				55AED052299FA05900648018 /* FavoritesService.swift in Sources */,
+				55AED05E29A2566700648018 /* RMTextField.swift in Sources */,
 				55AED023299BB07000648018 /* CharacterDetailViewController.swift in Sources */,
 				55AED016299A4D7B00648018 /* CharactersListModel.swift in Sources */,
 			);

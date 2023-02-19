@@ -111,7 +111,7 @@ class RegistrationViewController: UIViewController {
         let info = notification.userInfo!
         let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         
-        let offset = textField.frame.height + 20 // + bottom padding
+        let offset = textField.frame.height + 40 // + bottom padding
         let isHidedTextField = (view.frame.height - keyboardFrame.height - offset) < textField.frame.origin.y
         
         if isHidedTextField {
@@ -130,9 +130,9 @@ class RegistrationViewController: UIViewController {
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(view).multipliedBy(0.4)
         }
-        
+
         emailTextField.snp.makeConstraints { make in
-            make.top.equalTo(logoImage.snp.bottom).offset(-15)
+            make.top.equalTo(logoImage.snp.bottom).offset(-34)
             make.leading.trailing.equalToSuperview().inset(24)
         }
         
@@ -160,29 +160,26 @@ class RegistrationViewController: UIViewController {
     
     
     // MARK: Views
-    private let emailTextField: UITextField = {
-        let field = UITextField()
+    private let emailTextField: RMTextField = {
+        let field = RMTextField(labelText: "Email")
         field.keyboardType = .emailAddress
         field.borderStyle = .roundedRect
-        field.placeholder = "Email"
         field.autocapitalizationType = .none
         return field
     }()
     
-    private let passwordTextField: UITextField = {
-        let field = UITextField()
+    private let passwordTextField: RMTextField = {
+        let field = RMTextField(labelText: "Password")
         field.keyboardType = .default
         field.isSecureTextEntry = true
         field.borderStyle = .roundedRect
-        field.placeholder = "Password"
         return field
     }()
     
-    private let nameTextField: UITextField = {
-        let field = UITextField()
+    private let nameTextField: RMTextField = {
+        let field = RMTextField(labelText: "Name")
         field.keyboardType = .default
         field.borderStyle = .roundedRect
-        field.placeholder = "Name"
         return field
     }()
     
@@ -209,6 +206,10 @@ class RegistrationViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
+    
+    deinit {
+        print("deinit")
+    }
 }
 
 extension RegistrationViewController: UITextFieldDelegate {

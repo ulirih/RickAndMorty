@@ -117,21 +117,19 @@ class LoginViewController: UIViewController {
         }
     }
     
-    private let loginTextField: UITextField = {
-        let field = UITextField()
+    private let loginTextField: RMTextField = {
+        let field = RMTextField(labelText: "Email")
         field.keyboardType = .emailAddress
         field.borderStyle = .roundedRect
-        field.placeholder = "Email"
         field.autocapitalizationType = .none
         return field
     }()
     
-    private let passwordTextField: UITextField = {
-        let field = UITextField()
+    private let passwordTextField: RMTextField = {
+        let field = RMTextField(labelText: "Password")
         field.keyboardType = .default
         field.isSecureTextEntry = true
         field.borderStyle = .roundedRect
-        field.placeholder = "Password"
         return field
     }()
     
